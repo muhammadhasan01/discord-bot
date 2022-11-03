@@ -1,6 +1,15 @@
+import json
 import discord
 import os
+import requests
 from dotenv import load_dotenv
+
+
+def get_quote():
+    response = requests.get("https://zenquotes.io/api/random")
+    data = json.loads(response.text)[0]
+    quote = f'{data["q"]} - {data["a"]}'
+    return quote
 
 
 def main():
@@ -18,6 +27,10 @@ def main():
 
         if message.content.startswith('$hello'):
             await message.channel.send('Hello!')
+
+        if message.content.startswith('$quote'):
+            quote = get_quote()
+            await message.channel.send(quote)
 
     client.run(os.getenv('TOKEN'))
 
