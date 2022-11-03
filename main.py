@@ -2,6 +2,7 @@ import json
 import discord
 import os
 import requests
+import logging
 from dotenv import load_dotenv
 
 
@@ -13,12 +14,13 @@ def get_quote():
 
 
 def main():
+    logging.basicConfig(format='%(asctime)s | %(levelname)s | %(message)s', level=logging.INFO)
     load_dotenv()
     client = discord.Client(intents=discord.Intents.all())
 
     @client.event
     async def on_ready():
-        print('We have logged in as {0.user}'.format(client))
+        logging.info('We have logged in as {0.user}'.format(client))
 
     @client.event
     async def on_message(message):
