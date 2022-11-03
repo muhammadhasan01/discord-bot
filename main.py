@@ -5,9 +5,11 @@ import requests
 import logging
 from dotenv import load_dotenv
 
+QUOTE_API = 'https://zenquotes.io/api/random'
+
 
 def get_quote():
-    response = requests.get("https://zenquotes.io/api/random")
+    response = requests.get(QUOTE_API)
     data = json.loads(response.text)[0]
     quote = f'{data["q"]} - {data["a"]}'
     return quote
