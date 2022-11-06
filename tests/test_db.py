@@ -1,7 +1,7 @@
 import unittest
 
 from src.db import connect_db, create_table_todos, insert_todo_task, show_todo_task, update_task_status, select_task, \
-    delete_task
+    delete_task, clear_todo_tasks
 
 
 class MyTestCase(unittest.TestCase):
@@ -49,6 +49,11 @@ class MyTestCase(unittest.TestCase):
         row_id = insert_todo_task(self.db, "task")
         cnt = delete_task(self.db, row_id)
         self.assertEqual(1, cnt)
+
+    def test_clear_todo_tasks(self):
+        clear_todo_tasks(self.db)
+        res = show_todo_task(self.db)
+        self.assertEqual(0, len(res))
 
 
 if __name__ == '__main__':

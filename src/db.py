@@ -67,3 +67,8 @@ def delete_task(mydb: MySQLConnection, row_id: int):
     cursor = mydb.cursor()
     cursor.execute(f"DELETE FROM todos WHERE id={row_id}")
     return cursor.rowcount
+
+
+def clear_todo_tasks(mydb: MySQLConnection):
+    cursor = mydb.cursor()
+    cursor.execute("TRUNCATE TABLE todos")
