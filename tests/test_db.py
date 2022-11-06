@@ -1,6 +1,6 @@
 import unittest
 
-from src.db import connect_db, create_table_todos, insert_todo_task, show_todo_task
+from src.db import connect_db, create_table_todos, insert_todo_task, show_todo_task, update_task_status
 
 
 class MyTestCase(unittest.TestCase):
@@ -31,6 +31,11 @@ class MyTestCase(unittest.TestCase):
     def test_show_todo_task(self):
         result = show_todo_task(self.db)
         self.assertIsInstance(result, list)
+
+    def test_update_task_status(self):
+        row_id = insert_todo_task(self.db, "task")
+        cnt = update_task_status(self.db, row_id, 1)
+        self.assertEqual(cnt, 1)
 
 
 if __name__ == '__main__':

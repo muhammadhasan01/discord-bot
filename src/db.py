@@ -43,3 +43,15 @@ def show_todo_task(mydb: MySQLConnection, limit: int = 5):
     cursor = mydb.cursor()
     cursor.execute(f"SELECT * FROM todos LIMIT {limit}")
     return cursor.fetchall()
+
+
+def update_task_status(mydb: MySQLConnection, row_id: int, status: int):
+    cursor = mydb.cursor()
+
+    sql = "UPDATE todos SET is_done = %s WHERE id = %s"
+    val = (status, row_id)
+
+    cursor.execute(sql, val)
+    mydb.commit()
+
+    return cursor.rowcount
