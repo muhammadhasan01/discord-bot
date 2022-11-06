@@ -20,11 +20,11 @@ class MyTestCase(unittest.TestCase):
     def setUpClass(cls):
         load_dotenv()
         cls.db = connect_db(
-            host=os.getenv("HOST"),
-            user=os.getenv("USER"),
-            password=os.getenv("PASSWORD"),
-            port=os.getenv("PORT"),
-            database=os.getenv("DATABASE")
+            host=os.getenv("TEST_HOST"),
+            user=os.getenv("TEST_USER"),
+            password=os.getenv("TEST_PASSWORD"),
+            port=os.getenv("TEST_PORT"),
+            database=os.getenv("TEST_DATABASE")
         )
         create_table_todos(cls.db)
 
