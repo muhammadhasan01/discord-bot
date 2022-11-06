@@ -1,7 +1,13 @@
 import unittest
 
-from src.db import connect_db, create_table_todos, insert_todo_task, show_todo_task, update_task_status, select_task, \
-    delete_task, clear_todo_tasks
+from src.db import connect_db, \
+    create_table_todos, \
+    insert_todo_task, \
+    show_todo_tasks, \
+    update_task_status, \
+    select_task, \
+    delete_task, \
+    clear_todo_tasks
 
 
 class MyTestCase(unittest.TestCase):
@@ -29,8 +35,8 @@ class MyTestCase(unittest.TestCase):
         self.assertIsInstance(row_id, int)
         self.assertGreaterEqual(row_id, 1)
 
-    def test_show_todo_task(self):
-        result = show_todo_task(self.db)
+    def test_show_todo_tasks(self):
+        result = show_todo_tasks(self.db)
         self.assertIsInstance(result, list)
 
     def test_update_task_status(self):
@@ -52,7 +58,7 @@ class MyTestCase(unittest.TestCase):
 
     def test_clear_todo_tasks(self):
         clear_todo_tasks(self.db)
-        res = show_todo_task(self.db)
+        res = show_todo_tasks(self.db)
         self.assertEqual(0, len(res))
 
 

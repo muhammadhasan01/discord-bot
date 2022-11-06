@@ -39,7 +39,7 @@ def insert_todo_task(mydb: MySQLConnection, task: str):
     return cursor.lastrowid
 
 
-def show_todo_task(mydb: MySQLConnection, limit: int = 5):
+def show_todo_tasks(mydb: MySQLConnection, limit: int = 5):
     cursor = mydb.cursor()
     cursor.execute(f"SELECT * FROM todos LIMIT {limit}")
     return cursor.fetchall()
