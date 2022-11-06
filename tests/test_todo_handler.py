@@ -35,7 +35,7 @@ class TestTodoHandler(unittest.TestCase):
         cursor = self.db.cursor()
         cursor.execute('SELECT id FROM todos ORDER BY id DESC LIMIT 1')
         res = cursor.fetchone()
-        self.assertEqual(f'Task of "task 1" was successfully added with an id={res[0]}', msg)
+        self.assertEqual(f'Task of "task 1" was successfully added with an `id={res[0]}`', msg)
 
     def test_view_task_success_empty(self):
         clear_todo_tasks(self.db)
