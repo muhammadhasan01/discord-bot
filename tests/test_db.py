@@ -19,8 +19,9 @@ class MyTestCase(unittest.TestCase):
 
     def test_insert_todo_task(self):
         mydb = connect_db()
-        row_count = insert_todo_task(mydb, "task")
-        self.assertEqual(row_count, 1)
+        row_id = insert_todo_task(mydb, "task")
+        self.assertIsInstance(row_id, int)
+        self.assertGreaterEqual(row_id, 1)
         mydb.close()
 
     def test_show_todo_task(self):
