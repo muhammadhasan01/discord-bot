@@ -61,3 +61,9 @@ def select_task(mydb: MySQLConnection, row_id: int):
     cursor = mydb.cursor()
     cursor.execute(f"SELECT * FROM todos WHERE id={row_id}")
     return cursor.fetchone()
+
+
+def delete_task(mydb: MySQLConnection, row_id: int):
+    cursor = mydb.cursor()
+    cursor.execute(f"DELETE FROM todos WHERE id={row_id}")
+    return cursor.rowcount
