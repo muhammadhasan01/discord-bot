@@ -35,7 +35,7 @@ class MyTestCase(unittest.TestCase):
     def test_update_task_status(self):
         row_id = insert_todo_task(self.db, "task")
         cnt = update_task_status(self.db, row_id, 1)
-        self.assertEqual(cnt, 1)
+        self.assertEqual(1, cnt)
 
     def test_select_task(self):
         row_id = insert_todo_task(self.db, "task")
