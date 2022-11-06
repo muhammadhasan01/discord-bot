@@ -1,6 +1,6 @@
 import unittest
 
-from src.db import connect_db, create_table_todos
+from src.db import connect_db, create_table_todos, insert_todo_task
 
 
 class MyTestCase(unittest.TestCase):
@@ -15,6 +15,13 @@ class MyTestCase(unittest.TestCase):
         cursor = mydb.cursor()
         cursor.execute("SHOW TABLES LIKE 'todos'")
         self.assertGreaterEqual(len(cursor.fetchall()), 1)
+        mydb.close()
+
+    def test_insert_todo_task(self):
+        mydb = connect_db()
+        row_count = insert_todo_task(mydb, "task")
+        self.assertEqual(row_count, 1)
+        mydb.close()
 
 
 if __name__ == '__main__':

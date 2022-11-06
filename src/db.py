@@ -26,3 +26,14 @@ def create_table_todos(mydb: MySQLConnection):
         PRIMARY KEY(id)
     )
     """)
+
+
+def insert_todo_task(mydb: MySQLConnection, task: str):
+    cursor = mydb.cursor()
+
+    sql = "INSERT INTO todos (content, is_done) VALUES (%s, %s)"
+    val = (task, 0)
+
+    cursor.execute(sql, val)
+    mydb.commit()
+    return cursor.rowcount
