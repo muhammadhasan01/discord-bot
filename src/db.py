@@ -37,3 +37,9 @@ def insert_todo_task(mydb: MySQLConnection, task: str):
     cursor.execute(sql, val)
     mydb.commit()
     return cursor.rowcount
+
+
+def show_todo_task(mydb: MySQLConnection, limit: int = 5):
+    cursor = mydb.cursor()
+    cursor.execute(f"SELECT * FROM todos LIMIT {limit}")
+    return cursor.fetchall()
