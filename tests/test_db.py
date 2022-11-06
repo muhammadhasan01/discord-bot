@@ -16,6 +16,7 @@ class MyTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.db = connect_db()
+        create_table_todos(cls.db)
 
     @classmethod
     def tearDownClass(cls):
@@ -25,7 +26,6 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue(self.db.is_connected())
 
     def test_create_table_todos(self):
-        create_table_todos(self.db)
         cursor = self.db.cursor()
         cursor.execute("SHOW TABLES LIKE 'todos'")
         self.assertGreaterEqual(len(cursor.fetchall()), 1)
