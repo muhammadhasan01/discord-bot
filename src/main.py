@@ -1,23 +1,13 @@
-import json
 import discord
 import os
-import requests
 import logging
 from dotenv import load_dotenv
 
-QUOTE_API = 'https://zenquotes.io/api/random'
-
-
-def get_quote():
-    response = requests.get(QUOTE_API)
-    data = json.loads(response.text)[0]
-    quote = f'{data["q"]} - {data["a"]}'
-    return quote
+from src.quote import get_quote
 
 
 def main():
-    logging.basicConfig(format='%(asctime)s | %(levelname)s | %(message)s', level=logging.INFO)
-    load_dotenv()
+    setup()
     client = discord.Client(intents=discord.Intents.all())
 
     @client.event
@@ -37,6 +27,12 @@ def main():
             await message.channel.send(quote)
 
     client.run(os.getenv('TOKEN'))
+
+
+def setup():
+    logging.basicConfig(format='%(asctime)s | %(levelname)s | %(message)s', level=logging.INFO)
+    logging.info('Reading environment variables from .env file')
+    load_dotenv()
 
 
 if __name__ == "__main__":
