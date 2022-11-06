@@ -55,3 +55,9 @@ def update_task_status(mydb: MySQLConnection, row_id: int, status: int):
     mydb.commit()
 
     return cursor.rowcount
+
+
+def select_task(mydb: MySQLConnection, row_id: int):
+    cursor = mydb.cursor()
+    cursor.execute(f"SELECT * FROM todos WHERE id={row_id}")
+    return cursor.fetchone()

@@ -1,6 +1,6 @@
 import unittest
 
-from src.db import connect_db, create_table_todos, insert_todo_task, show_todo_task, update_task_status
+from src.db import connect_db, create_table_todos, insert_todo_task, show_todo_task, update_task_status, select_task
 
 
 class MyTestCase(unittest.TestCase):
@@ -36,6 +36,13 @@ class MyTestCase(unittest.TestCase):
         row_id = insert_todo_task(self.db, "task")
         cnt = update_task_status(self.db, row_id, 1)
         self.assertEqual(cnt, 1)
+
+    def test_select_task(self):
+        row_id = insert_todo_task(self.db, "task")
+        res_id, content, is_done = select_task(self.db, row_id)
+        self.assertEqual(row_id, res_id)
+        self.assertEqual("task", content)
+        self.assertEqual(0, is_done)
 
 
 if __name__ == '__main__':
