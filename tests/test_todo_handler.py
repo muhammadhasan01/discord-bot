@@ -3,7 +3,7 @@ import unittest
 
 from dotenv import load_dotenv
 
-from src.db import connect_db, create_table_todos
+from src.db import connect_db, create_table_todos, clear_todo_tasks
 from src.todo_handler import todo_handler
 
 
@@ -36,6 +36,11 @@ class TestTodoHandler(unittest.TestCase):
         cursor.execute('SELECT id FROM todos ORDER BY id DESC LIMIT 1')
         res = cursor.fetchone()
         self.assertEqual(f'Task of "task 1" was successfully added with an id={res[0]}', msg)
+
+    def test_view_task_success_empty(self):
+        clear_todo_tasks(self.db)
+        msg = todo_handler(self.db, '$todo view')
+        self.assertEquals('Your todo list is empty...', msg)
 
 
 if __name__ == '__main__':
