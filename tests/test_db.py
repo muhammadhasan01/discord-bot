@@ -1,4 +1,7 @@
+import os
 import unittest
+
+from dotenv import load_dotenv
 
 from src.db import connect_db, \
     create_table_todos, \
@@ -15,7 +18,14 @@ class MyTestCase(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.db = connect_db()
+        load_dotenv()
+        cls.db = connect_db(
+            host=os.getenv("HOST"),
+            user=os.getenv("USER"),
+            password=os.getenv("PASSWORD"),
+            port=os.getenv("PORT"),
+            database=os.getenv("DATABASE")
+        )
         create_table_todos(cls.db)
 
     @classmethod

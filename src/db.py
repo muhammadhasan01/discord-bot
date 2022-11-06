@@ -4,16 +4,14 @@ from dotenv import load_dotenv
 from mysql.connector import MySQLConnection
 
 
-def connect_db():
-    load_dotenv()
-    mydb = mysql.connector.connect(
-        host=os.getenv('HOST'),
-        user=os.getenv('USER'),
-        password=os.getenv('PASSWORD'),
-        port=os.getenv('PORT'),
-        database=os.getenv('DB')
+def connect_db(host: str, user: str, password: str, port: str, database: str):
+    return mysql.connector.connect(
+        host=host,
+        user=user,
+        password=password,
+        port=port,
+        database=database
     )
-    return mydb
 
 
 def create_table_todos(mydb: MySQLConnection):
