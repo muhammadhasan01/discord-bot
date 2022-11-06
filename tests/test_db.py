@@ -28,6 +28,7 @@ class MyTestCase(unittest.TestCase):
         mydb = connect_db()
         result = show_todo_task(mydb)
         self.assertIsInstance(result, list)
+        mydb.close()
 
 
 if __name__ == '__main__':
