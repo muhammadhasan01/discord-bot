@@ -13,7 +13,7 @@ from src.db import connect_db, \
     clear_todo_tasks
 
 
-class MyTestCase(unittest.TestCase):
+class TestDatabase(unittest.TestCase):
     db = None
 
     @classmethod
