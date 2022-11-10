@@ -20,7 +20,7 @@ def todo_handler(db: MySQLConnection, content: str):
     if data[1] == "add":
         task = " ".join(data[2:])[1:-1]
         row_id = insert_todo_task(db, task)
-        return f'Task of "{task}" was successfully added with an `id={row_id}`'
+        return f'Task of "{task}" was successfully added with an `id = {row_id}`'
     elif data[1] == "view":
         limit = int(data[2]) if len(data) >= 3 else 5
         res = show_todo_tasks(db, limit)
