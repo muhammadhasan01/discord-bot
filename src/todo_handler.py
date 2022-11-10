@@ -32,12 +32,15 @@ def todo_handler(db: MySQLConnection, content: str):
     elif data[1] == "update":
         if len(data) != 4:
             return INVALID_QUERY_UPDATE_ARGS
+
         row_id, status = int(data[2]), data[3]
         if status not in ["done", "undone"]:
             return f'invalid status value={status}, value can only be `done` and `undone`'
+
         num = 1 if status == "done" else 0
         res = update_task_status(db, row_id, num)
         if res == 0:
             return DEFAULT_ERROR_MESSAGE
+
         return f'Task with id={row_id} successfully updated to status={status}'
 
