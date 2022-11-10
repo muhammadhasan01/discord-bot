@@ -1,6 +1,6 @@
 from mysql.connector import MySQLConnection
 
-from src.db import insert_todo_task, show_todo_tasks, update_task_status, delete_task, select_task
+from src.db import insert_todo_task, show_todo_tasks, update_task_status, delete_task, select_task, clear_todo_tasks
 
 INVALID_QUERY_ARGUMENT = "invalid query, $todo must have at least two argument"
 INVALID_QUERY_UPDATE_ARGS = "Invalid query, format update should be: `$query update {id} [done|undone]`"
@@ -9,6 +9,7 @@ INVALID_QUERY_DELETE_ARGS = "Invalid query, format delete should be: `$query del
 INVALID_QUERY_CLEAR_ARGS = "Invalid query, format clear should only be: `$query clear`"
 EMPTY_QUERY_VIEW = "Your todo list is empty..."
 DEFAULT_ERROR_MESSAGE = "Something went wrong..."
+SUCCESSFUL_QUERY_CLEAR = "Todo tasks have been successfully cleared"
 
 
 def todo_handler(db: MySQLConnection, content: str):
@@ -70,3 +71,6 @@ def todo_handler(db: MySQLConnection, content: str):
     elif data[1] == "clear":
         if len(data) != 2:
             return INVALID_QUERY_CLEAR_ARGS
+
+        clear_todo_tasks(db)
+        return SUCCESSFUL_QUERY_CLEAR
