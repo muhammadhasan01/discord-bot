@@ -44,24 +44,24 @@ class TestTodoHandler(unittest.TestCase):
 
     def test_update_task_invalid_args(self):
         msg = todo_handler(self.db, '$todo update 3923 arg1 arg2')
-        self.assertEqual("Invalid query, format update should be: \"$query update {id} [done|undone]\"", msg)
+        self.assertEqual("Invalid query, format update should be: `$query update {id} [done|undone]`", msg)
 
     def test_update_task_invalid_status(self):
         msg = todo_handler(self.db,  '$todo update 1 arg')
-        self.assertEqual("invalid status value=arg, value can only be `done` and `undone`", msg)
+        self.assertEqual("invalid status `value=arg`, value can only be `done` and `undone`", msg)
 
     def test_update_task_success(self):
         row_id = insert_todo_task(self.db, "task")
         msg = todo_handler(self.db, f'$todo update {row_id} done')
-        self.assertEqual(f'Task with id={row_id} successfully updated to status=done', msg)
+        self.assertEqual(f'Task with `id={row_id}` successfully updated to `status=done`', msg)
 
     def test_delete_task_invalid_args(self):
         msg = todo_handler(self.db, '$todo delete 3923 arg1 arg2')
-        self.assertEqual("Invalid query, format delete should be: \"$query delete {id}\"", msg)
+        self.assertEqual("Invalid query, format delete should be: `$query delete {id}`", msg)
 
     def test_delete_task_invalid_id(self):
         msg = todo_handler(self.db, '$todo delete -1')
-        self.assertEqual("Cannot delete task with id=-1, make sure the task exist", msg)
+        self.assertEqual("Cannot delete task with `id=-1`, make sure the task exist", msg)
 
     def test_delete_task_success(self):
         row_id = insert_todo_task(self.db, "task")
