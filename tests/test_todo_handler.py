@@ -72,6 +72,10 @@ class TestTodoHandler(unittest.TestCase):
         msg = todo_handler(self.db, '$todo select 3923 arg1 arg2')
         self.assertEqual("Invalid query, format select should be: `$query select {id}`", msg)
 
+    def test_select_task_invalid_id(self):
+        msg = todo_handler(self.db, '$todo select -1')
+        self.assertEqual("Task with `id=-1` does not exist...", msg)
+
 
 if __name__ == '__main__':
     unittest.main()

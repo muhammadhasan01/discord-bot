@@ -1,6 +1,6 @@
 from mysql.connector import MySQLConnection
 
-from src.db import insert_todo_task, show_todo_tasks, update_task_status, delete_task
+from src.db import insert_todo_task, show_todo_tasks, update_task_status, delete_task, select_task
 
 INVALID_QUERY_ARGUMENT = "invalid query, $todo must have at least two argument"
 INVALID_QUERY_UPDATE_ARGS = "Invalid query, format update should be: `$query update {id} [done|undone]`"
@@ -59,3 +59,7 @@ def todo_handler(db: MySQLConnection, content: str):
         if len(data) != 3:
             return INVALID_QUERY_SELECT_ARGS
 
+        row_id = int(data[2])
+        res = select_task(db, row_id)
+        if res is None:
+            return f'Task with `id={row_id}` does not exist...'
