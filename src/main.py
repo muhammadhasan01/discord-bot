@@ -1,10 +1,9 @@
 import discord
 import os
-import logging
 from dotenv import load_dotenv
 
-from src.db import connect_db, create_table_todos
-from src.quote import get_quote
+from src.db.db import connect_db, create_table_todos
+from src.api.quote import get_quote
 from src.todo_handler import todo_handler
 from src.utils.logger import create_logger
 

@@ -3,7 +3,7 @@ import unittest
 
 from dotenv import load_dotenv
 
-from src.db import connect_db, \
+from src.db.db import connect_db, \
     create_table_todos, \
     insert_todo_task, \
     show_todo_tasks, \

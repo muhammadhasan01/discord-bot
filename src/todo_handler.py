@@ -1,6 +1,6 @@
 from mysql.connector import MySQLConnection
 
-from src.db import insert_todo_task, show_todo_tasks, update_task_status, delete_task, select_task, clear_todo_tasks
+from src.db.db import insert_todo_task, show_todo_tasks, update_task_status, delete_task, select_task, clear_todo_tasks
 
 INVALID_QUERY_ARGUMENT = "invalid query, $todo must have at least two argument"
 INVALID_QUERY_UPDATE_ARGS = "Invalid query, format update should be: `$query update {id} [done|undone]`"
