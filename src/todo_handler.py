@@ -53,4 +53,6 @@ def todo_handler(db: MySQLConnection, content: str):
         if res == 0:
             return f'Cannot delete task with id={row_id}, make sure the task exist'
 
+        return f'Task with `id={row_id}` successfully deleted!'
+
 
