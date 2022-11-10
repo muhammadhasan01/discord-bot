@@ -4,6 +4,7 @@ from src.db import insert_todo_task, show_todo_tasks
 
 INVALID_QUERY_ARGUMENT = "invalid query, $todo must have at least two argument"
 INVALID_QUERY_UPDATE = "Invalid query, format update should be: \"$query format {id}\""
+EMPTY_QUERY_VIEW = "Your todo list is empty..."
 
 
 def todo_handler(db: MySQLConnection, content: str):
@@ -19,7 +20,7 @@ def todo_handler(db: MySQLConnection, content: str):
         limit = int(data[2]) if len(data) >= 3 else 5
         res = show_todo_tasks(db, limit)
         if len(res) == 0:
-            return "Your todo list is empty..."
+            return EMPTY_QUERY_VIEW
 
         msg = "```\n"
         msg += "id - task - status\n"
