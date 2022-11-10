@@ -1,6 +1,6 @@
 import unittest
 
-from src.quote import get_quote
+from src.api.quote import get_quote
 
 SEPARATOR = '-'
 
