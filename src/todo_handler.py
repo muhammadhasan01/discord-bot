@@ -3,7 +3,7 @@ from mysql.connector import MySQLConnection
 from src.db import insert_todo_task, show_todo_tasks, update_task_status
 
 INVALID_QUERY_ARGUMENT = "invalid query, $todo must have at least two argument"
-INVALID_QUERY_UPDATE_ARGS = "Invalid query, format update should be: \"$query format {id}\""
+INVALID_QUERY_UPDATE_ARGS = "Invalid query, format update should be: \"$query update {id} [done|undone]\""
 INVALID_QUERY_DELETE_ARGS = "Invalid query, format delete should be: \"$query delete {id}\""
 EMPTY_QUERY_VIEW = "Your todo list is empty..."
 DEFAULT_ERROR_MESSAGE = "Something went wrong..."

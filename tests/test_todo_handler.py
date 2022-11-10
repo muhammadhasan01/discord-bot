@@ -44,7 +44,7 @@ class TestTodoHandler(unittest.TestCase):
 
     def test_update_task_invalid_args(self):
         msg = todo_handler(self.db, '$todo update 3923 arg1 arg2')
-        self.assertEqual("Invalid query, format update should be: \"$query format {id}\"", msg)
+        self.assertEqual("Invalid query, format update should be: \"$query update {id} [done|undone]\"", msg)
 
     def test_update_task_invalid_status(self):
         msg = todo_handler(self.db,  '$todo update 1 arg')
