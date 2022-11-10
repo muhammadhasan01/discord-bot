@@ -63,3 +63,6 @@ def todo_handler(db: MySQLConnection, content: str):
         res = select_task(db, row_id)
         if res is None:
             return f'Task with `id={row_id}` does not exist...'
+
+        _, task, is_done = res
+        return f'Task of "{task}" with an id={row_id} has a status of {"DONE" if is_done else "NOT DONE"}'

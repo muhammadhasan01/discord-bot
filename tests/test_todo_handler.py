@@ -76,6 +76,11 @@ class TestTodoHandler(unittest.TestCase):
         msg = todo_handler(self.db, '$todo select -1')
         self.assertEqual("Task with `id=-1` does not exist...", msg)
 
+    def test_select_task_success(self):
+        row_id = insert_todo_task(self.db, "task")
+        msg = todo_handler(self.db, f'$todo select {row_id}')
+        self.assertEqual(f'Task of "task" with an id={row_id} has a status of NOT DONE', msg)
+
 
 if __name__ == '__main__':
     unittest.main()
