@@ -6,22 +6,24 @@ from dotenv import load_dotenv
 from src.db import connect_db, create_table_todos
 from src.quote import get_quote
 from src.todo_handler import todo_handler
+from src.utils.logger import create_logger
 
 
 def main():
+    logger = create_logger()
     client, db = setup()
 
     @client.event
     async def on_ready():
-        logging.info('We have logged in as {0.user}'.format(client))
+        logger.info('We have logged in as {0.user}'.format(client))
 
     @client.event
     async def on_message(message: discord.Message):
         if message.author == client.user:
             return
 
-        content = message.content
-        content.strip()
+        content = message.content.strip()
+        logger.info(f'Message with content={content} has been received')
 
         if content.startswith('$hello'):
             await message.channel.send('Hello!')
@@ -38,8 +40,6 @@ def main():
 
 
 def setup():
-    logging.basicConfig(format='%(asctime)s | %(levelname)s | %(message)s', level=logging.INFO)
-    logging.info('Reading environment variables from .env file')
     load_dotenv()
     client = discord.Client(intents=discord.Intents.all())
     db = connect_db(
