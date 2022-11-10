@@ -42,6 +42,10 @@ class TestTodoHandler(unittest.TestCase):
         msg = todo_handler(self.db, '$todo view')
         self.assertEquals('Your todo list is empty...', msg)
 
+    def test_update_task_invalid(self):
+        msg = todo_handler(self.db, '$todo update 3923 arg')
+        self.assertEqual("Invalid query, format update should be: \"$query format {id}\"", msg)
+
 
 if __name__ == '__main__':
     unittest.main()
