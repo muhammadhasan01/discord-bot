@@ -4,8 +4,8 @@ from src.db import insert_todo_task, show_todo_tasks, update_task_status, delete
 
 INVALID_QUERY_ARGUMENT = "invalid query, $todo must have at least two argument"
 INVALID_QUERY_UPDATE_ARGS = "Invalid query, format update should be: `$query update {id} [done|undone]`"
-INVALID_QUERY_DELETE_ARGS = "Invalid query, format delete should be: `$query delete {id}`"
 INVALID_QUERY_SELECT_ARGS = "Invalid query, format select should be: `$query select {id}`"
+INVALID_QUERY_DELETE_ARGS = "Invalid query, format delete should be: `$query delete {id}`"
 EMPTY_QUERY_VIEW = "Your todo list is empty..."
 DEFAULT_ERROR_MESSAGE = "Something went wrong..."
 
@@ -45,16 +45,6 @@ def todo_handler(db: MySQLConnection, content: str):
             return DEFAULT_ERROR_MESSAGE
 
         return f'Task with `id={row_id}` successfully updated to `status={status}`'
-    elif data[1] == "delete":
-        if len(data) != 3:
-            return INVALID_QUERY_DELETE_ARGS
-
-        row_id = int(data[2])
-        res = delete_task(db, row_id)
-        if res == 0:
-            return f'Cannot delete task with `id={row_id}`, make sure the task exist'
-
-        return f'Task with `id={row_id}` successfully deleted!'
     elif data[1] == "select":
         if len(data) != 3:
             return INVALID_QUERY_SELECT_ARGS
@@ -66,3 +56,13 @@ def todo_handler(db: MySQLConnection, content: str):
 
         _, task, is_done = res
         return f'Task of "{task}" with an id={row_id} has a status of {"DONE" if is_done else "NOT DONE"}'
+    elif data[1] == "delete":
+        if len(data) != 3:
+            return INVALID_QUERY_DELETE_ARGS
+
+        row_id = int(data[2])
+        res = delete_task(db, row_id)
+        if res == 0:
+            return f'Cannot delete task with `id={row_id}`, make sure the task exist'
+
+        return f'Task with `id={row_id}` successfully deleted!'
