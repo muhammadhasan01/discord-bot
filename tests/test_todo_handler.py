@@ -40,7 +40,7 @@ class TestTodoHandler(unittest.TestCase):
     def test_view_task_success_empty(self):
         clear_todo_tasks(self.db)
         msg = todo_handler(self.db, '$todo view')
-        self.assertEquals('Your todo list is empty...', msg)
+        self.assertEqual("Your todo list is empty...", msg)
 
     def test_update_task_invalid(self):
         msg = todo_handler(self.db, '$todo update 3923 arg')
