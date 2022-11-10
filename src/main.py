@@ -1,9 +1,7 @@
 import discord
 import os
-from dotenv import load_dotenv
-
-from src.db.db import connect_db, create_table_todos
 from src.api.quote import get_quote
+from src.utils.setup import setup
 from src.utils.todo_handler import todo_handler
 from src.utils.logger import create_logger
 
@@ -36,20 +34,6 @@ def main():
             await message.channel.send(msg)
 
     client.run(os.getenv('TOKEN'))
-
-
-def setup():
-    load_dotenv()
-    client = discord.Client(intents=discord.Intents.all())
-    db = connect_db(
-        host=os.getenv("HOST"),
-        user=os.getenv("USER"),
-        password=os.getenv("PASSWORD"),
-        port=os.getenv("PORT"),
-        database=os.getenv("DATABASE")
-    )
-    create_table_todos(db)
-    return client, db
 
 
 if __name__ == "__main__":
