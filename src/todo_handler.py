@@ -4,6 +4,7 @@ from src.db import insert_todo_task, show_todo_tasks, update_task_status
 
 INVALID_QUERY_ARGUMENT = "invalid query, $todo must have at least two argument"
 INVALID_QUERY_UPDATE_ARGS = "Invalid query, format update should be: \"$query format {id}\""
+INVALID_QUERY_DELETE_ARGS = "Invalid query, format delete should be: \"$query delete {id}\""
 EMPTY_QUERY_VIEW = "Your todo list is empty..."
 DEFAULT_ERROR_MESSAGE = "Something went wrong..."
 
@@ -43,4 +44,7 @@ def todo_handler(db: MySQLConnection, content: str):
             return DEFAULT_ERROR_MESSAGE
 
         return f'Task with id={row_id} successfully updated to status={status}'
+    elif data[1] == "delete":
+        if len(data) != 3:
+            return INVALID_QUERY_DELETE_ARGS
 
