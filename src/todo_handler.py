@@ -1,6 +1,6 @@
 from mysql.connector import MySQLConnection
 
-from src.db import insert_todo_task, show_todo_tasks
+from src.db import insert_todo_task, show_todo_tasks, update_task_status
 
 INVALID_QUERY_ARGUMENT = "invalid query, $todo must have at least two argument"
 INVALID_QUERY_UPDATE = "Invalid query, format update should be: \"$query format {id}\""
@@ -29,6 +29,6 @@ def todo_handler(db: MySQLConnection, content: str):
         msg += "```\n"
         return msg
     elif data[1] == "update":
-        if len(data) != 3:
+        if len(data) != 4:
             return INVALID_QUERY_UPDATE
 

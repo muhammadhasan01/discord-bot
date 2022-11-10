@@ -43,7 +43,7 @@ class TestTodoHandler(unittest.TestCase):
         self.assertEqual("Your todo list is empty...", msg)
 
     def test_update_task_invalid(self):
-        msg = todo_handler(self.db, '$todo update 3923 arg')
+        msg = todo_handler(self.db, '$todo update 3923 arg1 arg2')
         self.assertEqual("Invalid query, format update should be: \"$query format {id}\"", msg)
 
 
