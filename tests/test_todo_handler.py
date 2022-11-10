@@ -3,7 +3,7 @@ import unittest
 
 from dotenv import load_dotenv
 
-from src.db import connect_db, create_table_todos, clear_todo_tasks
+from src.db import connect_db, create_table_todos, clear_todo_tasks, insert_todo_task
 from src.todo_handler import todo_handler
 
 
@@ -45,6 +45,11 @@ class TestTodoHandler(unittest.TestCase):
     def test_update_task_invalid(self):
         msg = todo_handler(self.db, '$todo update 3923 arg1 arg2')
         self.assertEqual("Invalid query, format update should be: \"$query format {id}\"", msg)
+
+    def test_update_task_success(self):
+        row_id = insert_todo_task(self.db, "task")
+        msg = todo_handler(self.db, f'$todo update {row_id} done')
+        self.assertEqual(f'Task with id={row_id} successfully updated to status=done', msg)
 
 
 if __name__ == '__main__':
