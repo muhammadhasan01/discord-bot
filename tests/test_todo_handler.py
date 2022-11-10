@@ -59,6 +59,10 @@ class TestTodoHandler(unittest.TestCase):
         msg = todo_handler(self.db, '$todo delete 3923 arg1 arg2')
         self.assertEqual("Invalid query, format delete should be: \"$query delete {id}\"", msg)
 
+    def test_delete_task_invalid_id(self):
+        msg = todo_handler(self.db, '$todo delete -1')
+        self.assertEqual("Cannot delete task with id=-1, make sure the task exist", msg)
+
 
 if __name__ == '__main__':
     unittest.main()
