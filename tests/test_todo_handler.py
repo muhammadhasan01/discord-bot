@@ -68,6 +68,10 @@ class TestTodoHandler(unittest.TestCase):
         msg = todo_handler(self.db, f'$todo delete {row_id}')
         self.assertEqual(f'Task with `id={row_id}` successfully deleted!', msg)
 
+    def test_select_task_invalid_args(self):
+        msg = todo_handler(self.db, '$todo select 3923 arg1 arg2')
+        self.assertEqual("Invalid query, format select should be: `$query select {id}`", msg)
+
 
 if __name__ == '__main__':
     unittest.main()
