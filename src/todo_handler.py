@@ -6,6 +6,7 @@ INVALID_QUERY_ARGUMENT = "invalid query, $todo must have at least two argument"
 INVALID_QUERY_UPDATE_ARGS = "Invalid query, format update should be: `$query update {id} [done|undone]`"
 INVALID_QUERY_SELECT_ARGS = "Invalid query, format select should be: `$query select {id}`"
 INVALID_QUERY_DELETE_ARGS = "Invalid query, format delete should be: `$query delete {id}`"
+INVALID_QUERY_CLEAR_ARGS = "Invalid query, format clear should only be: `$query clear`"
 EMPTY_QUERY_VIEW = "Your todo list is empty..."
 DEFAULT_ERROR_MESSAGE = "Something went wrong..."
 
@@ -66,3 +67,6 @@ def todo_handler(db: MySQLConnection, content: str):
             return f'Cannot delete task with `id={row_id}`, make sure the task exist'
 
         return f'Task with `id={row_id}` successfully deleted!'
+    elif data[1] == "clear":
+        if len(data) != 2:
+            return INVALID_QUERY_CLEAR_ARGS
