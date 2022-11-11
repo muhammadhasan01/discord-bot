@@ -1,21 +1,13 @@
 from mysql.connector import MySQLConnection
 
 from src.db.db import insert_todo_task, show_todo_tasks, update_task_status, delete_task, select_task, clear_todo_tasks
-
-INVALID_QUERY_ARGUMENT = "invalid query, $todo must have at least two argument"
-INVALID_QUERY_UPDATE_ARGS = "Invalid query, format update should be: `$query update {id} [done|undone]`"
-INVALID_QUERY_SELECT_ARGS = "Invalid query, format select should be: `$query select {id}`"
-INVALID_QUERY_DELETE_ARGS = "Invalid query, format delete should be: `$query delete {id}`"
-INVALID_QUERY_CLEAR_ARGS = "Invalid query, format clear should only be: `$query clear`"
-EMPTY_QUERY_VIEW = "Your todo list is empty..."
-DEFAULT_ERROR_MESSAGE = "Something went wrong..."
-SUCCESSFUL_QUERY_CLEAR = "Todo tasks have been successfully cleared"
+from src.utils.constants import Constant
 
 
 def todo_handler(db: MySQLConnection, content: str):
     data = content.strip().split()
     if len(data) < 2:
-        return INVALID_QUERY_ARGUMENT
+        return Constant.INVALID_QUERY_ARGUMENT
 
     if data[1] == "add":
         task = " ".join(data[2:])[1:-1]
@@ -25,7 +17,7 @@ def todo_handler(db: MySQLConnection, content: str):
         limit = int(data[2]) if len(data) >= 3 else 5
         res = show_todo_tasks(db, limit)
         if len(res) == 0:
-            return EMPTY_QUERY_VIEW
+            return Constant.EMPTY_QUERY_VIEW
 
         msg = "```\n"
         msg += "id - task - status\n"
@@ -35,7 +27,7 @@ def todo_handler(db: MySQLConnection, content: str):
         return msg
     elif data[1] == "update":
         if len(data) != 4:
-            return INVALID_QUERY_UPDATE_ARGS
+            return Constant.INVALID_QUERY_UPDATE_ARGS
 
         row_id, status = int(data[2]), data[3]
         if status not in ["done", "undone"]:
@@ -44,12 +36,12 @@ def todo_handler(db: MySQLConnection, content: str):
         num = 1 if status == "done" else 0
         res = update_task_status(db, row_id, num)
         if res == 0:
-            return DEFAULT_ERROR_MESSAGE
+            return Constant.DEFAULT_ERROR_MESSAGE
 
         return f'Task with `id = {row_id}` successfully updated to `status = {status}`'
     elif data[1] == "select":
         if len(data) != 3:
-            return INVALID_QUERY_SELECT_ARGS
+            return Constant.INVALID_QUERY_SELECT_ARGS
 
         row_id = int(data[2])
         res = select_task(db, row_id)
@@ -60,7 +52,7 @@ def todo_handler(db: MySQLConnection, content: str):
         return f'Task of "{task}" with an id = {row_id} has a status of {"`DONE`" if is_done else "`NOT DONE`"}'
     elif data[1] == "delete":
         if len(data) != 3:
-            return INVALID_QUERY_DELETE_ARGS
+            return Constant.INVALID_QUERY_DELETE_ARGS
 
         row_id = int(data[2])
         res = delete_task(db, row_id)
@@ -70,7 +62,7 @@ def todo_handler(db: MySQLConnection, content: str):
         return f'Task with `id = {row_id}` successfully deleted!'
     elif data[1] == "clear":
         if len(data) != 2:
-            return INVALID_QUERY_CLEAR_ARGS
+            return Constant.INVALID_QUERY_CLEAR_ARGS
 
         clear_todo_tasks(db)
-        return SUCCESSFUL_QUERY_CLEAR
+        return Constant.SUCCESSFUL_QUERY_CLEAR
