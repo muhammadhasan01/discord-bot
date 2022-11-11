@@ -48,12 +48,12 @@ class TestTodoHandler(unittest.TestCase):
 
     def test_update_task_invalid_status(self):
         msg = todo_handler(self.db,  '$todo update 1 arg')
-        self.assertEqual("invalid status `value=arg`, value can only be `done` and `undone`", msg)
+        self.assertEqual("invalid status `value = arg`, value can only be `done` and `undone`", msg)
 
     def test_update_task_success(self):
         row_id = insert_todo_task(self.db, "task")
         msg = todo_handler(self.db, f'$todo update {row_id} done')
-        self.assertEqual(f'Task with `id={row_id}` successfully updated to `status=done`', msg)
+        self.assertEqual(f'Task with `id = {row_id}` successfully updated to `status = done`', msg)
 
     def test_select_task_invalid_args(self):
         msg = todo_handler(self.db, '$todo select 3923 arg1 arg2')
@@ -61,12 +61,12 @@ class TestTodoHandler(unittest.TestCase):
 
     def test_select_task_invalid_id(self):
         msg = todo_handler(self.db, '$todo select -1')
-        self.assertEqual("Task with `id=-1` does not exist...", msg)
+        self.assertEqual("Task with `id = -1` does not exist...", msg)
 
     def test_select_task_success(self):
         row_id = insert_todo_task(self.db, "task")
         msg = todo_handler(self.db, f'$todo select {row_id}')
-        self.assertEqual(f'Task of "task" with an id={row_id} has a status of NOT DONE', msg)
+        self.assertEqual(f'Task of "task" with an id = {row_id} has a status of `NOT DONE`', msg)
 
     def test_delete_task_invalid_args(self):
         msg = todo_handler(self.db, '$todo delete 3923 arg1 arg2')
@@ -74,12 +74,12 @@ class TestTodoHandler(unittest.TestCase):
 
     def test_delete_task_invalid_id(self):
         msg = todo_handler(self.db, '$todo delete -1')
-        self.assertEqual("Cannot delete task with `id=-1`, make sure the task exist", msg)
+        self.assertEqual("Cannot delete task with `id = -1`, make sure the task exist", msg)
 
     def test_delete_task_success(self):
         row_id = insert_todo_task(self.db, "task")
         msg = todo_handler(self.db, f'$todo delete {row_id}')
-        self.assertEqual(f'Task with `id={row_id}` successfully deleted!', msg)
+        self.assertEqual(f'Task with `id = {row_id}` successfully deleted!', msg)
 
     def test_clear_task_invalid_args(self):
         msg = todo_handler(self.db, '$todo clear arg')

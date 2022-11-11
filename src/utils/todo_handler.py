@@ -39,14 +39,14 @@ def todo_handler(db: MySQLConnection, content: str):
 
         row_id, status = int(data[2]), data[3]
         if status not in ["done", "undone"]:
-            return f'invalid status `value={status}`, value can only be `done` and `undone`'
+            return f'invalid status `value = {status}`, value can only be `done` and `undone`'
 
         num = 1 if status == "done" else 0
         res = update_task_status(db, row_id, num)
         if res == 0:
             return DEFAULT_ERROR_MESSAGE
 
-        return f'Task with `id={row_id}` successfully updated to `status={status}`'
+        return f'Task with `id = {row_id}` successfully updated to `status = {status}`'
     elif data[1] == "select":
         if len(data) != 3:
             return INVALID_QUERY_SELECT_ARGS
@@ -54,10 +54,10 @@ def todo_handler(db: MySQLConnection, content: str):
         row_id = int(data[2])
         res = select_task(db, row_id)
         if res is None:
-            return f'Task with `id={row_id}` does not exist...'
+            return f'Task with `id = {row_id}` does not exist...'
 
         _, task, is_done = res
-        return f'Task of "{task}" with an id={row_id} has a status of {"DONE" if is_done else "NOT DONE"}'
+        return f'Task of "{task}" with an id = {row_id} has a status of {"`DONE`" if is_done else "`NOT DONE`"}'
     elif data[1] == "delete":
         if len(data) != 3:
             return INVALID_QUERY_DELETE_ARGS
@@ -65,9 +65,9 @@ def todo_handler(db: MySQLConnection, content: str):
         row_id = int(data[2])
         res = delete_task(db, row_id)
         if res == 0:
-            return f'Cannot delete task with `id={row_id}`, make sure the task exist'
+            return f'Cannot delete task with `id = {row_id}`, make sure the task exist'
 
-        return f'Task with `id={row_id}` successfully deleted!'
+        return f'Task with `id = {row_id}` successfully deleted!'
     elif data[1] == "clear":
         if len(data) != 2:
             return INVALID_QUERY_CLEAR_ARGS
