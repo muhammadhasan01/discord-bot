@@ -1,2 +1,3 @@
 # discord-bot
-Personal Discord Bot
+
+Simple discord bot that can give you quotes and handle your todo tasks
