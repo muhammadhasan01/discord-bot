@@ -10,11 +10,11 @@ def setup():
     load_dotenv()
     client = discord.Client(intents=discord.Intents.all())
     db = connect_db(
-        host=os.getenv("HOST"),
-        user=os.getenv("USER"),
-        password=os.getenv("PASSWORD"),
-        port=os.getenv("PORT"),
-        database=os.getenv("DATABASE")
+        host=os.getenv("DB_HOST"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+        port=os.getenv("DB_PORT"),
+        database=os.getenv("DB_DATABASE")
     )
     create_table_todos(db)
     return client, db
