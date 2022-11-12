@@ -29,6 +29,8 @@
 
 ![hello](./docs/images/hello.png)
 
+![quote](./docs/images/quote.png)
+
 ![view-empty](./docs/images/view-empty.png)
 
 ![add](./docs/images/add.png)
