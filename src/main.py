@@ -33,7 +33,7 @@ def main():
             msg = todo_handler(db, content)
             await message.channel.send(msg)
 
-    client.run(os.getenv('TOKEN'))
+    client.run(os.getenv('DISCORD_TOKEN'))
 
 
 if __name__ == "__main__":
